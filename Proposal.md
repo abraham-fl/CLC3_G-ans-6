@@ -34,8 +34,6 @@ Connection strings, API endpoints, etc. will be kept in a Azure KeyVault.
 
 ## Responsibilities
 * Milestones 1 + 2: Philipp Preiser
-<br>
 * Milestones 3 + 4: Tobias Baumgartner
-<br>
 * Milestones 5 + 6: Florian Abraham
 
