@@ -5,10 +5,10 @@
     <div class="w3-row-padding">
     {% for image in pagination.items%}
           <div class="w3-third w3-container w3-margin-bottom">
-            <img src="{{ url_for('static', filename='images/' + image) }}" alt=image style="width:100%" class="w3-hover-opacity">
+            <img src="{{ image.url }}" alt=image style="width:100%" class="w3-hover-opacity">
             <div class="w3-container w3-white">
                 <p><b>Tags</b></p>
-                <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+                <p>{{ image.get_blob_properties().metadata["tags"] }}</p>
             </div>
           </div>
     {% endfor %}
