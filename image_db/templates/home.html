@@ -4,7 +4,7 @@
 
     <div class="w3-row-padding">
   <!-- First Photo Grid-->
-    {% for image in images%}
+    {% for image in pagination.items%}
           <div class="w3-third w3-container w3-margin-bottom">
             <img src="{{ url_for('static', filename='images/' + image) }}" alt=image style="width:100%" class="w3-hover-opacity">
             <div class="w3-container w3-white">
@@ -12,9 +12,21 @@
                 <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
             </div>
           </div>
-
     {% endfor %}
           </div>
+
+          <div class="w3-center w3-padding-32">
+            <div class="w3-bar">
+              {% for page_num in pagination.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                  {% if pagination.page == page_num %}
+                    <a class="w3-bar-item w3-black w3-button" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+                  {% else %}
+                    <a class="w3-bar-item w3-button w3-hover-black" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+                  {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+      
   <!-- Second Photo Grid-->
   <!--
   <div class="w3-row-padding">
