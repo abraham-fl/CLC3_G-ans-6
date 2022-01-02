@@ -18,9 +18,9 @@
         <div class="w3-bar">
           {% for page_num in pagination.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
               {% if pagination.page == page_num %}
-                <a class="w3-bar-item w3-black w3-button" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+                <a class="w3-bar-item w3-black w3-button" href="{{ url_for('main.results', page=page_num, tag1=tag1, tag2=tag2, tag3=tag3) }}">{{ page_num }}</a>
               {% else %}
-                <a class="w3-bar-item w3-button w3-hover-black" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+                <a class="w3-bar-item w3-button w3-hover-black" href="{{ url_for('main.results', page=page_num, tag1=tag1, tag2=tag2, tag3=tag3) }}">{{ page_num }}</a>
               {% endif %}
           {% endfor %}
         </div>
