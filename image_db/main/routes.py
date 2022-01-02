@@ -11,8 +11,6 @@ database = Db()
 @main.route("/", methods = ['GET'])
 @main.route("/home", methods = ['GET'])
 def home():
-    page = request.args.get("page", 1, type=int)
-    per_page = 6
     blob_images = Db.getImageContainer().list_blobs()
     count = Counter()
     for image in blob_images:
