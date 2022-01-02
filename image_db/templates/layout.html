@@ -22,57 +22,62 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
   <!-- Header -->
   <header id="portfolio">
     <div class="w3-container">
+      <h1>Image Database</h1>
         <div class="w3-section w3-bottombar w3-padding-16">
             <span class="w3-margin-right">Filter:</span> 
 
-            <label for="tag1">Choose tags:</label>
           <!--TODO: Show actual tags-->
+          <form action="{{ url_for('main.results') }}" method="get">            
             <select name="tag1" id="tags">
-              <option value="volvo">Character</option>
-              <option value="saab">Weapon</option>
-              <option value="mercedes">Desert</option>
-              <option value="audi">Spaceship</option>
+              <option value=""></option>
+              {% for tag in count %}
+                {% if tag == tag1 %}
+                  <option value={{ tag }} selected>{{ tag }}</option>
+                {% else %}
+                  <option value={{ tag }}>{{ tag }}</option>
+                {% endif %}
+              {% endfor %}
             </select> 
 
-            <select name="andor1" id="tags">
-                <option value="AND">AND</option>
-                <option value="OR">OR</option>
-            </select> 
-
-            <select name="tag2" id="tags">
-              <option value="volvo">Weapon</option>
-              <option value="saab">Character</option>
-              <option value="mercedes">Desert</option>
-              <option value="audi">Spaceship</option>
+             <select name="tag2" id="tags">
+              <option value=""></option>
+              {% for tag in count %}
+                {% if tag == tag2 %}
+                  <option value={{ tag }} selected>{{ tag }}</option>
+                {% else %}
+                  <option value={{ tag }}>{{ tag }}</option>
+                {% endif %}
+              {% endfor %}
             </select>   
             
-            <select name="andor2" id="tags">
-                <option value="AND">AND</option>
-                <option value="OR">OR</option>
-            </select> 
-
             <select name="tag3" id="tags">
-              <option value="volvo">Desert</option>
-              <option value="saab">Spaceship</option>
-              <option value="mercedes">Weapon</option>
-              <option value="audi">Character</option>
-            </select>    
+              <option value=""></option>
+              {% for tag in count %}
+                {% if tag == tag2 %}
+                  <option value={{ tag }} selected>{{ tag }}</option>
+                {% else %}
+                  <option value={{ tag }}>{{ tag }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+            <button class="w3-bar-item w3-black w3-button" type=Submit>GO</button>
+            <a href="{{ url_for('main.home') }}" class="w3-bat-item w3-black w3-button">Reset</a>
+          </form>    
+
         </div>
     </div>
   </header>
-  
+
 {% block content %}{% endblock %}
   <!-- Footer -->
   <footer class="w3-container w3-padding-32 w3-dark-grey">
   <div class="w3-row-padding">
     <div class="w3-third">
     </div>
-  
 
     <div class="w3-third">
       <h3>MOST COMMON TAGS</h3>
       <p>
-          <!--TODO: DISPLAY 5 MOST COMMON TAGS IN DB-->
         {% for tag in count %}
         <span class="w3-tag w3-grey w3-small w3-margin-bottom">{{ tag }}</span>
         {% endfor %}
