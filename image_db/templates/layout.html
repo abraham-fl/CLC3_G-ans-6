@@ -38,24 +38,24 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
                 {% endif %}
               {% endfor %}
             </select> 
-
+            >
              <select name="tag2" id="tags">
               <option value=""></option>
               {% for tag in count %}
-                {% if tag == tag2 %}
+                {% if tag == tag2 and tag != tag1 %}
                   <option value={{ tag }} selected>{{ tag }}</option>
-                {% else %}
+                {% elif tag != tag1 %}
                   <option value={{ tag }}>{{ tag }}</option>
                 {% endif %}
               {% endfor %}
             </select>   
-            
+            >
             <select name="tag3" id="tags">
               <option value=""></option>
               {% for tag in count %}
-                {% if tag == tag2 %}
+                {% if tag == tag3 and tag != tag1 and tag != tag2%}
                   <option value={{ tag }} selected>{{ tag }}</option>
-                {% else %}
+                {% elif tag != tag1 and tag != tag2 %}
                   <option value={{ tag }}>{{ tag }}</option>
                 {% endif %}
               {% endfor %}

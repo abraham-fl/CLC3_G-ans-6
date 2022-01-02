@@ -3,3 +3,4 @@ clc_venv/
 __pychache__/
 *.pyc
 *.ini
+.deployment
