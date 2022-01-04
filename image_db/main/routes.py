@@ -15,7 +15,8 @@ def home():
     count = Counter()
     for image in blob_images:
         blob_client = Db.getImageContainer().get_blob_client(blob=image.name)
-        count.update(blob_client.get_blob_properties().metadata["tags"].split(", "))
+        if "tags" in blob_client.get_blob_properties().metadata:
+            count.update(set(blob_client.get_blob_properties().metadata["tags"].split(", ")))
 
     count = [i[0] for i in count.most_common()]
     return render_template('home.html', pagination = None, count = count)
@@ -31,10 +32,11 @@ def results():
     count = Counter()
     for image in blob_images:
         blob_client = Db.getImageContainer().get_blob_client(blob=image.name)
-        image_tags = set(blob_client.get_blob_properties().metadata["tags"].split(", "))
-        if reduced_tags.issubset(image_tags):
-            images.append(blob_client)
-            count.update(image_tags)
+        if "tags" in blob_client.get_blob_properties().metadata:
+            image_tags = set(blob_client.get_blob_properties().metadata["tags"].split(", "))
+            if reduced_tags.issubset(image_tags):
+                images.append(blob_client)
+                count.update(image_tags)
 
     count = [i[0] for i in count.most_common()]
     # get the start and end index based on page number
