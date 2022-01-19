@@ -6,6 +6,7 @@ from image_db.database.db import Db
 
 main = Blueprint("main", __name__)
 
+Db()
 
 @main.route("/", methods=["GET"])
 @main.route("/home", methods=["GET"])
