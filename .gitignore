@@ -1,6 +1,11 @@
-.vscode/
+.vscode
 clc_venv/
 __pychache__/
 *.pyc
 *.ini
 .deployment
+
+.python_packages
+__pycache__
+
+.funcignore
