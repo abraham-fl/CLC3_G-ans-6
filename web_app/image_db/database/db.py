@@ -2,7 +2,7 @@ import configparser
 from azure.storage.blob import BlobServiceClient
 
 config = configparser.ConfigParser()
-config.read("imagedb.ini")
+config.read(r"imagedb.ini")
 
 
 class Db:
