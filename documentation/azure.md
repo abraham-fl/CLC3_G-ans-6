@@ -78,6 +78,8 @@ To make sure that every deployment triggers a build (and thus installs packages 
 
 Functions are created with the help of Visual Studio.
 
+Either write your own or use our [FunctionName](./azure function)
+
 ---
 
 ## Computer Vision
