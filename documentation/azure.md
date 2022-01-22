@@ -1,6 +1,8 @@
 # Setup Azure Resources
 We assume that you have a basic understanding of how to navigate the Azure Portal.
 
+---
+
 ## Resource Group 
 Create a new Resource Group with the following settings:
 ### Basics
@@ -15,6 +17,8 @@ Click on the `Review + Create` Button to start the validation process and click 
 
 Click on the Resource Group you just created.
 From now on, unless specified otherwise, every major headline requires you to return to this page in order to create a new resource.
+
+---
 
 ## Storage Account
 Click `+ Create` on the upper left corner and search for the `Storage account` resource. Select the search result and click `Create`.
@@ -41,6 +45,8 @@ As mentioned in the [WebApp Documentation](webapp.md), we require a connection s
 * Click on `Show keys`
 * Copy the `Connection string` found und `key1` and replace the `<Enter your connection string here>` part in the `imagedb.ini` file.
 
+---
+
 ## WebApp
 Click `+ Create` on the upper left corner and search for the `WebApp` resource. Select the search result and click `Create`.
 
@@ -56,10 +62,13 @@ Click `+ Create` on the upper left corner and search for the `WebApp` resource. 
 
 Leave other settings at default and click on `Review + create`. Once validation is passed click `Create`.
 
+---
+
 ## Functions
 
 TBD
 
+---
 
 ## Computer Vision
 Click `+ Create` on the upper left corner and search for the `Computer Vision` resource. Select the search result and click `Create`.
@@ -77,3 +86,6 @@ Click `+ Create` on the upper left corner and search for the `Computer Vision` r
 1. Set the `Status` as `On`
 
 Leave other settings at default and click on `Review + create`. Once validation is passed click `Create`.
+
+
+### Retrieve Endpoint and Key
