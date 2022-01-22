@@ -10,6 +10,7 @@
 * Visual Studio installed
 
 ## Contents
-[Setup VS Code / Visual Studio](./documentation/ide.md)
-[Create a WebApp](./documentation/webapp.md)
-[Setup Azure Ressources](./documentation/azure.md)
+[Setup VS Code / Visual Studio](./documentation/ide.md)<br>
+[Create a WebApp](./documentation/webapp.md)<br>
+[Setup Azure Ressources](./documentation/azure.md)<br>
+[Deploy your WebApp](./documentation/webapp_deploy.md)<br>
