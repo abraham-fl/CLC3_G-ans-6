@@ -20,6 +20,5 @@ for file in onlyfiles:
     with open(local_data + "/" + file, "rb") as data:
         blob_client.upload_blob(data, overwrite=True)
 
-
 end = time.time()
 print("Time elapsed: " + str(end - start))
