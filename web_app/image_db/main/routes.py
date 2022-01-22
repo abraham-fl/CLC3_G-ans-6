@@ -33,7 +33,7 @@ def results():
         request.args.get("tag3"),
     ]
     reduced_tags = set([t for t in tags if t])
-    per_page = 6
+    per_page = 9
     blob_images = Db.getThumbnailContainer().list_blobs()
     images = []
     count = Counter()
