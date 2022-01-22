@@ -24,7 +24,7 @@ namespace TestFunctionApp
         {
             log.LogInformation($"Tagging done of : {myQueueItem}");
 
-            string connectionString = "DefaultEndpointsProtocol=https;AccountName=gansimagestoragenorth;AccountKey=YlKRr01Z9hdzWr4blvhRrQhw3cTiMErM1HJX5SCe0VyN0gFGxUm5S8NOYGor6VofI/4KXVLWR3MNthCPmJJY4g==;EndpointSuffix=core.windows.net";
+            string connectionString = "<Enter Your Connection String Here>";
 
             string containerNameDownload = "images";
 
@@ -36,23 +36,12 @@ namespace TestFunctionApp
 
             BlobDownloadResult blob = blobClient.DownloadContent();
             
-            
 
             Bitmap bmp = new Bitmap(new MemoryStream(blob.Content.ToArray()));
 
             log.LogInformation($"pixel at 0,0: {bmp.GetPixel(0, 0)}");
             log.LogInformation($"pixel at 1,1: {bmp.GetPixel(1, 1)}");
             log.LogInformation($"dimensions: h:{bmp.Height}, w:{bmp.Width}");
-
-            /*
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-            CloudBlobContainer container = blobClient.GetContainerReference("images");
-
-            CloudBlockBlob blob = container.GetBlockBlobReference("4999.jpg");
-
-            blob.DownloadToFileAsync("C:\\Users\\tobia\\Documents\\ImageBlob.jpg", System.IO.FileMode.CreateNew);
-            */
 
             Bitmap img = bmp;
             int w = img.Width;

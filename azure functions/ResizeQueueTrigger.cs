@@ -19,7 +19,7 @@ namespace TestFunctionApp
         {
             log.LogInformation($"Histogram flattening done of : {myQueueItem}");
 
-            string connectionString = "DefaultEndpointsProtocol=https;AccountName=gansimagestoragenorth;AccountKey=YlKRr01Z9hdzWr4blvhRrQhw3cTiMErM1HJX5SCe0VyN0gFGxUm5S8NOYGor6VofI/4KXVLWR3MNthCPmJJY4g==;EndpointSuffix=core.windows.net";
+            string connectionString = "<Enter Your Connection String here>";
 
             string containerNameDownload = "processed";
 
@@ -30,10 +30,6 @@ namespace TestFunctionApp
             BlobProperties prop = await blobClient.GetPropertiesAsync();
 
             BlobDownloadResult blob = blobClient.DownloadContent();
-
-            // Bitmap bmp = new Bitmap(new MemoryStream(blob.Content.ToArray()));
-
-            //resize bitmap
 
             var destinationSize = 480;
             var destinationImage = new Bitmap(destinationSize, destinationSize);
@@ -75,9 +71,6 @@ namespace TestFunctionApp
             log.LogInformation($"{myQueueItem} is uploaded into ");
 
             await blobClientUpload.SetMetadataAsync(prop.Metadata);
-
-
-
         }
     }
 }

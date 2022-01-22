@@ -18,7 +18,7 @@ namespace TestFunctionApp
         {
             log.LogInformation($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
 
-            subScriptionKey = "";
+            subScriptionKey = "<Enter Your Visual subscription>";
 
             // create a ComputerVisionClient using SubscriptionKey and Endpoint
             var client = new ComputerVisionClient(new ApiKeyServiceClientCredentials(Config.SubscriptionKey))

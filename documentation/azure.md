@@ -62,11 +62,21 @@ Click `+ Create` on the upper left corner and search for the `WebApp` resource. 
 
 Leave other settings at default and click on `Review + create`. Once validation is passed click `Create`.
 
+As soon as deployment is complete click `Go to resource`.
+
+### Configure the WebApp
+To make sure that every deployment triggers a build (and thus installs packages from the `requirements.txt`) file you need to add a configuration setting to your WebApp:
+1. Click in `Configuration` in the `Settings` section on the navigation pane to the left.
+2. Click on `+ New application setting`.
+3. Enter `SCM_DO_BUILD_DURING_DEPLOYMENT` as `Name` and `true` as `Value`
+4. Click `OK`
+5. Click `Save`
+
 ---
 
 ## Functions
 
-TBD
+Functions are created with the help of Visual Studio.
 
 ---
 
