@@ -56,3 +56,24 @@ Click `+ Create` on the upper left corner and search for the `WebApp` resource. 
 
 Leave other settings at default and click on `Review + create`. Once validation is passed click `Create`.
 
+## Functions
+
+TBD
+
+
+## Computer Vision
+Click `+ Create` on the upper left corner and search for the `Computer Vision` resource. Select the search result and click `Create`.
+
+### Basics
+1. Select your subscription
+2. Select your resource group
+3. Set the `Region` to `North Europe`
+4. Name your Computer Vision resource
+5. Select `Free F0` as your `Pricing tier`
+6. Read and accept the terms at the bottom of the page
+
+
+### Identity
+1. Set the `Status` as `On`
+
+Leave other settings at default and click on `Review + create`. Once validation is passed click `Create`.
