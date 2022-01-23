@@ -11,10 +11,10 @@ Db()
 @main.route("/", methods=["GET"])
 @main.route("/home", methods=["GET"])
 def home():
-    blob_images = Db.getImageContainer().list_blobs()
+    blob_images = Db.getThumbnailContainer().list_blobs()
     count = Counter()
     for image in blob_images:
-        blob_client = Db.getImageContainer().get_blob_client(blob=image.name)
+        blob_client = Db.getThumbnailContainer().get_blob_client(blob=image.name)
         if "tags" in blob_client.get_blob_properties().metadata:
             count.update(
                 set(blob_client.get_blob_properties().metadata["tags"].split(", "))
@@ -33,12 +33,12 @@ def results():
         request.args.get("tag3"),
     ]
     reduced_tags = set([t for t in tags if t])
-    per_page = 6
-    blob_images = Db.getImageContainer().list_blobs()
+    per_page = 9
+    blob_images = Db.getThumbnailContainer().list_blobs()
     images = []
     count = Counter()
     for image in blob_images:
-        blob_client = Db.getImageContainer().get_blob_client(blob=image.name)
+        blob_client = Db.getThumbnailContainer().get_blob_client(blob=image.name)
         if "tags" in blob_client.get_blob_properties().metadata:
             image_tags = set(
                 blob_client.get_blob_properties().metadata["tags"].split(", ")
