@@ -26,11 +26,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
         <div class="w3-section w3-bottombar w3-padding-16">
             <span class="w3-margin-right">Filter:</span> 
 
-          <!--TODO: Show actual tags-->
           <form action="{{ url_for('main.results') }}" method="get">            
             <select name="tag1" id="tags">
               <option value=""></option>
-              {% for tag in count %}
+              {% for tag in all_tags %}
                 {% if tag == tag1 %}
                   <option value={{ tag }} selected>{{ tag }}</option>
                 {% else %}
@@ -41,7 +40,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
             >
              <select name="tag2" id="tags">
               <option value=""></option>
-              {% for tag in count %}
+              {% for tag in all_tags %}
                 {% if tag == tag2 and tag != tag1 %}
                   <option value={{ tag }} selected>{{ tag }}</option>
                 {% elif tag != tag1 %}
@@ -52,7 +51,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
             >
             <select name="tag3" id="tags">
               <option value=""></option>
-              {% for tag in count %}
+              {% for tag in all_tags %}
                 {% if tag == tag3 and tag != tag1 and tag != tag2%}
                   <option value={{ tag }} selected>{{ tag }}</option>
                 {% elif tag != tag1 and tag != tag2 %}
