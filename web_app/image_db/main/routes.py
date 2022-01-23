@@ -47,7 +47,7 @@ def results():
                 images.append(blob_client)
                 count.update(image_tags)
 
-    count = [i[0] for i in count.most_common()]
+    count = [i[0] for i in count.most_common(15)]
     # get the start and end index based on page number
     start = (page - 1) * per_page
     end = start + per_page
