@@ -6,40 +6,83 @@ using Microsoft.Extensions.Logging;
 
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Microsoft.Azure.CognitiveServices.Language.LUIS.Runtime;
-using ServiceStack.Text;
+using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
+using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
+using Azure.Storage.Blobs;
+using System.Linq;
 
 namespace TestFunctionApp
 {
     public class UploadBlobTrigger
     {
+        private static readonly string connectionString = Environment.GetEnvironmentVariable("ConnectionStringImageStorage");
+        private static readonly string subScriptionKey = Environment.GetEnvironmentVariable("SubscriptionKey");
+        private static readonly string endPoint = Environment.GetEnvironmentVariable("CognitiveServiceEndpoint");
+        private static readonly string containerNameDownload = Environment.GetEnvironmentVariable("ContainerNameImage");
+
         [FunctionName("UploadBlobTrigger")]
-        public async Task RunAsync([BlobTrigger("images/{name}", Connection = "")]Stream myBlob, string name, ILogger log)
+        public async Task RunAsync([BlobTrigger("images/{name}", Connection = "AzureWebJobsStorage")] Stream blob, [Queue("queue-tagging-done", Connection = "AzureWebJobsStorage")] ICollector<string> outputQueueItem, string name, ILogger log)
         {
-            log.LogInformation($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {myBlob.Length} Bytes");
+            log.LogInformation($"C# Blob trigger function started with:{name} \n");
 
-            subScriptionKey = "<Enter Your Visual subscription>";
+            string tagNames = "";
 
-            // create a ComputerVisionClient using SubscriptionKey and Endpoint
-            var client = new ComputerVisionClient(new ApiKeyServiceClientCredentials(Config.SubscriptionKey))
+            List<string> dummyTags = new List<string> (new string[] { "pc game", "person", "mountain", "building", "vehicle", "grass", "outdoor", "landscape", "cloud", "hero"});
+            if (name.StartsWith("dummy_"))
             {
-                Endpoint = Config.Endpoint
-            };
+                List<string> tagList = dummyTags.OrderBy(arg => Guid.NewGuid()).Take(5).ToList();
+                bool first = true;
+                foreach (var tag in tagList)
+                {
+                    if (!first)
+                    {
+                        tagNames += ", ";
+                    }
+                    tagNames += tag;
+                    first = false;
+                }
+            } else
+            {
+                log.LogInformation($"Going to start client");
+                // create a ComputerVisionClient using SubscriptionKey and Endpoint
+                var client = new ComputerVisionClient(new ApiKeyServiceClientCredentials(subScriptionKey))
+                {
+                    Endpoint = endPoint
+                };
+                log.LogInformation($"Client Started");
+                // specify desired AI features
+                var features = new List<VisualFeatureTypes?> { VisualFeatureTypes.Tags };
 
-            // specify desired AI features
-            var features = new List<VisualFeatureTypes?> { VisualFeatureTypes.Tags };
+                var result = await client.AnalyzeImageInStreamWithHttpMessagesAsync(blob, features);
+                // Process the blob
 
-            // Process the blob
-            var result = await client.AnalyzeImageWithHttpMessagesAsync(image.Uri.ToString(), features);
-            log.LogInformation($"Got response from Computer Vision with status ({result.Response.StatusCode})");
+                log.LogInformation($"Got response from Computer Vision with status ({result.Response.StatusCode})");
 
-            // extract tags and store them as Dictionary<string,string>
-            var tags = result.Body.Tags
-                .Select((tag, index) => new { index = $"tag_{index}", tag })
-                .ToDictionary(x => x.index, x => x.tag.Name);
+                // extract tags and store them as Dictionary<string,string>
+
+                bool first = true;
+                foreach (var tag in result.Body.Tags)
+                {
+                    if (!first)
+                    {
+                        tagNames += ", ";
+                    }
+                    tagNames += $"{tag.Name}";
+                    first = false;
+                }
+
+            }
+
+            Dictionary<string, string> tags = new Dictionary<string, string> { { "tags", tagNames } };
+            
+            BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
+            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerNameDownload);
+            BlobClient blobClient = containerClient.GetBlobClient(name);
 
             // store tags using custom blob metadata
-            await image.SetMetadataAsync(tags);
+            await blobClient.SetMetadataAsync(tags);
+
+            outputQueueItem.Add(name);
         }
     }
 }

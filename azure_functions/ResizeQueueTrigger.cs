@@ -14,14 +14,14 @@ namespace TestFunctionApp
 {
     public class ResizeQueueTrigger
     {
+        private static readonly string connectionString = Environment.GetEnvironmentVariable("ConnectionStringImageStorage");
+        private static readonly string containerNameDownload = Environment.GetEnvironmentVariable("ContainerNameProcessed");
+        private static readonly string containerNameUpload = Environment.GetEnvironmentVariable("ContainerNameThumbnails");
+
         [FunctionName("ResizeQueueTrigger")]
-        public async Task RunAsync([QueueTrigger("queue-histogram-flattening-done", Connection = "")]string myQueueItem, ILogger log)
+        public async Task RunAsync([QueueTrigger("queue-histogram-flattening-done", Connection = "AzureWebJobsStorage")]string myQueueItem, ILogger log)
         {
             log.LogInformation($"Histogram flattening done of : {myQueueItem}");
-
-            string connectionString = "<Enter Your Connection String here>";
-
-            string containerNameDownload = "processed";
 
             BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
             BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerNameDownload);
@@ -30,6 +30,10 @@ namespace TestFunctionApp
             BlobProperties prop = await blobClient.GetPropertiesAsync();
 
             BlobDownloadResult blob = blobClient.DownloadContent();
+
+            // Bitmap bmp = new Bitmap(new MemoryStream(blob.Content.ToArray()));
+
+            //resize bitmap
 
             var destinationSize = 480;
             var destinationImage = new Bitmap(destinationSize, destinationSize);
@@ -56,7 +60,6 @@ namespace TestFunctionApp
                 }
             }
 
-            string containerNameUpload = "thumbnails";
 
             BlobContainerClient containerClientUpload = blobServiceClient.GetBlobContainerClient(containerNameUpload);
             BlobClient blobClientUpload = containerClientUpload.GetBlobClient(myQueueItem);
@@ -71,6 +74,9 @@ namespace TestFunctionApp
             log.LogInformation($"{myQueueItem} is uploaded into ");
 
             await blobClientUpload.SetMetadataAsync(prop.Metadata);
+
+
+
         }
     }
 }
