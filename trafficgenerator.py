@@ -9,8 +9,8 @@ database = Db()
 local_data = r"C:/Users/flori/OneDrive/Dokumente/Programmieren/Python/Bilder aus Forum holen/imgs/testing_flo"
 
 onlyfiles = [f for f in listdir(local_data) if isfile(join(local_data, f))]
-[rename(join(local_data, f), join(local_data, "dummy_" + f)) for f in onlyfiles if not "dummy_" in f]
-onlyfiles = [f for f in listdir(local_data) if isfile(join(local_data, f))]
+#[rename(join(local_data, f), join(local_data, "dummy_" + f)) for f in onlyfiles if not "dummy_" in f]
+#onlyfiles = [f for f in listdir(local_data) if isfile(join(local_data, f))]
 
 
 start = time.time()
