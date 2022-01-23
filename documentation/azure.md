@@ -65,12 +65,14 @@ Leave other settings at default and click on `Review + create`. Once validation 
 As soon as deployment is complete click `Go to resource`.
 
 ### Configure the WebApp
-To make sure that every deployment triggers a build (and thus installs packages from the `requirements.txt`) file you need to add a configuration setting to your WebApp:
+To make sure that every deployment triggers a build (and thus installs packages from the `requirements.txt`) file you need to add a configuration setting to your WebApp. We also need to set our port to work with deployments out of VS Code.
 1. Click in `Configuration` in the `Settings` section on the navigation pane to the left.
 2. Click on `+ New application setting`.
 3. Enter `SCM_DO_BUILD_DURING_DEPLOYMENT` as `Name` and `true` as `Value`
 4. Click `OK`
-5. Click `Save`
+5. Enter `WEBSITES_PORT` as `Name` and `8000` as `Value`
+6. Click `OK`
+7. Click `Save`
 
 ---
 
