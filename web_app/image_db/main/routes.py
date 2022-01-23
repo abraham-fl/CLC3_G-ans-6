@@ -3,6 +3,7 @@ from flask import Blueprint
 from flask import render_template, request
 from flask_sqlalchemy import Pagination
 from image_db.database.db import Db
+from copy import deepcopy as dc
 
 main = Blueprint("main", __name__)
 
@@ -21,7 +22,11 @@ def home():
             )
 
     count = [i[0] for i in count.most_common()]
-    return render_template("home.html", pagination=None, count=count)
+    all_tags = dc(count)
+    all_tags.sort()
+    count = count[:15]
+
+    return render_template("home.html", pagination=None, count=count, all_tags=all_tags)
 
 
 @main.route("/results", methods=["GET", "POST"])
@@ -47,7 +52,10 @@ def results():
                 images.append(blob_client)
                 count.update(image_tags)
 
-    count = [i[0] for i in count.most_common(15)]
+    count = [i[0] for i in count.most_common()]
+    all_tags = dc(count)
+    all_tags.sort()
+    count = count[:15]
     # get the start and end index based on page number
     start = (page - 1) * per_page
     end = start + per_page
@@ -58,6 +66,7 @@ def results():
         "results.html",
         pagination=pagination,
         count=count,
+        all_tags=all_tags,
         tag1=tags[0],
         tag2=tags[1],
         tag3=tags[2],
