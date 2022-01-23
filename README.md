@@ -16,4 +16,4 @@
 4. [Deploy your WebApp](./documentation/webapp_deploy.md)<br>
 
 ## Architecture
-![Architecture](../images/architecture.png)
+![Architecture](../images/ImageDB.jpg)
