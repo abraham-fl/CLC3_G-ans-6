@@ -14,3 +14,6 @@
 2. [Create a WebApp](./documentation/webapp.md)<br>
 3. [Setup Azure Ressources](./documentation/azure.md)<br>
 4. [Deploy your WebApp](./documentation/webapp_deploy.md)<br>
+
+## Architecture
+![Architecture](../images/architecture.png)
